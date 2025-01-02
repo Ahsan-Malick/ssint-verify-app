@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { Button } from "./ui/button"
+import { useState, useRef } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Button } from "./ui/button";
 import {
   Form,
   FormControl,
@@ -11,26 +11,29 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form"
-import { Input } from "./ui/input"
-import { Textarea } from "./ui/textarea"
-import { Toast } from "./ui/use-toast"
+} from "./ui/form";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { Toast } from "./ui/use-toast";
 
-
- type CardDetails = {
-    ssintId: string;
-    cardNumber: string;
-    cardName: string;
-    cardSet: string;
-    cardYear: string;
-    grade: string;
-    additionalInfo: string;
-    frontImage?: string;
-    backImage?: string;
-  }
+type CardDetails = {
+  ssintId: string;
+  cardNumber: string;
+  cardName: string;
+  cardSet: string;
+  cardYear: string;
+  grade: string;
+  additionalInfo: string;
+  frontImage: File | string;
+  backImage: File | string;
+};
 
 export default function AddCertDetails() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [frontImagePreview, setFrontImagePreview] = useState<string | null>(
+    null
+  );
+  const [backImagePreview, setBackImagePreview] = useState<string | null>(null);
 
   const form = useForm<CardDetails>({
     defaultValues: {
@@ -44,33 +47,79 @@ export default function AddCertDetails() {
       frontImage: "",
       backImage: "",
     },
-  })
+  });
 
   const onSubmit: SubmitHandler<CardDetails> = async (data) => {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      console.log(data)
-      Toast({
-        title: "Card details saved",
-        // description: "The card details have been successfully saved.",
-      })
-      form.reset()
+      const formData = new FormData();
+      const {
+        ssintId,
+        cardName,
+        cardNumber,
+        cardSet,
+        cardYear,
+        grade,
+        additionalInfo,
+        frontImage,
+        backImage,
+      } = data;
+      formData.append("ssintId", ssintId);
+      formData.append("cardName", cardName);
+      formData.append("cardNumber", cardNumber);
+      formData.append("cardSet", cardSet);
+      formData.append("cardYear", cardYear.toString()); // Convert number to string
+      formData.append("grade", grade);
+      formData.append("additionalInfo", additionalInfo || "");
+      formData.append("frontImage", frontImage);
+      formData.append("backImage", backImage);
+
+      const response = await fetch("/api/addCertificate", {
+        method: "POST",
+        body: formData,
+      });
+      console.log(response);
+      // Toast({
+      //   title: "Card details saved",
+      //   // description: "The card details have been successfully saved.",
+      // })
+      // form.reset();
+      setFrontImagePreview(null);
+      setBackImagePreview(null);
     } catch (error) {
-      Toast({
-        title: "Error",
-        // description: "There was an error saving the card details.",
-        variant: "destructive",
-      })
+      // Toast({
+      //   title: "Error",
+      //   // description: "There was an error saving the card details.",
+      //   variant: "destructive",
+      // })
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
+
+  const handleImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    side: "front" | "back"
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (side === "front") {
+          console.log(reader.result);
+          setFrontImagePreview(reader.result as string);
+          form.setValue("frontImage", file);
+        } else {
+          setBackImagePreview(reader.result as string);
+          form.setValue("backImage", file);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
       <header className="border-b">
         <div className="container mx-auto px-4 py-4">
           <nav className="flex items-center justify-between">
@@ -97,9 +146,9 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>SSINT ID</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="SSINT-001" 
-                          {...field} 
+                        <Input
+                          placeholder="SSINT-001"
+                          {...field}
                           required
                           pattern="SSINT-\d{3}"
                           title="SSINT ID must be in format SSINT-XXX where X is a number"
@@ -117,9 +166,9 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Card Number</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="CARD-12345" 
-                          {...field} 
+                        <Input
+                          placeholder="CARD-12345"
+                          {...field}
                           required
                           pattern="CARD-\d+"
                           title="Card number must start with CARD- followed by numbers"
@@ -137,9 +186,9 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Card Name</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Charizard VMAX" 
-                          {...field} 
+                        <Input
+                          placeholder="Charizard VMAX"
+                          {...field}
                           required
                           minLength={2}
                         />
@@ -156,9 +205,9 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Card Set</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Champion's Path" 
-                          {...field} 
+                        <Input
+                          placeholder="Champion's Path"
+                          {...field}
                           required
                           minLength={2}
                         />
@@ -175,9 +224,9 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Year</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="2020" 
-                          {...field} 
+                        <Input
+                          placeholder="2020"
+                          {...field}
                           required
                           pattern="\d{4}"
                           title="Please enter a valid year (YYYY)"
@@ -195,11 +244,7 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Grade</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="PSA 10" 
-                          {...field} 
-                          required
-                        />
+                        <Input placeholder="PSA 10" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -214,7 +259,7 @@ export default function AddCertDetails() {
                   <FormItem>
                     <FormLabel>Additional Information</FormLabel>
                     <FormControl>
-                      <Textarea 
+                      <Textarea
                         placeholder="Enter any additional information about the card..."
                         className="min-h-[100px]"
                         {...field}
@@ -229,19 +274,40 @@ export default function AddCertDetails() {
                 <FormField
                   control={form.control}
                   name="frontImage"
-                  render={({ field }) => (
+                  render={({ field: { value, onChange, ...field } }) => (
                     <FormItem>
-                      <FormLabel>Front Image URL</FormLabel>
+                      <FormLabel>Front Image</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="https://..." 
-                          {...field}
-                          type="url"
-                          title="Please enter a valid URL"
-                        />
+                        <div className="flex flex-col items-center">
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            id="frontImage"
+                            onChange={(e) => handleImageUpload(e, "front")}
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() =>
+                              document.getElementById("frontImage")?.click()
+                            }
+                            className="mb-2"
+                          >
+                            Upload Front Image
+                          </Button>
+                          {frontImagePreview && (
+                            <img
+                              src={frontImagePreview}
+                              alt="Front of card"
+                              className="mt-2 max-w-full h-auto max-h-40 object-contain"
+                            />
+                          )}
+                        </div>
                       </FormControl>
                       <FormDescription>
-                        Enter the URL for the front image of the card
+                        Upload the front image of the card
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -251,19 +317,40 @@ export default function AddCertDetails() {
                 <FormField
                   control={form.control}
                   name="backImage"
-                  render={({ field }) => (
+                  render={({ field: { value, onChange, ...field } }) => (
                     <FormItem>
-                      <FormLabel>Back Image URL</FormLabel>
+                      <FormLabel>Back Image</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="https://..." 
-                          {...field}
-                          type="url"
-                          title="Please enter a valid URL"
-                        />
+                        <div className="flex flex-col items-center">
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            id="backImage"
+                            onChange={(e) => handleImageUpload(e, "back")}
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() =>
+                              document.getElementById("backImage")?.click()
+                            }
+                            className="mb-2"
+                          >
+                            Upload Back Image
+                          </Button>
+                          {backImagePreview && (
+                            <img
+                              src={backImagePreview}
+                              alt="Back of card"
+                              className="mt-2 max-w-full h-auto max-h-40 object-contain"
+                            />
+                          )}
+                        </div>
                       </FormControl>
                       <FormDescription>
-                        Enter the URL for the back image of the card
+                        Upload the back image of the card
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -271,8 +358,8 @@ export default function AddCertDetails() {
                 />
               </div>
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full bg-red-600 hover:bg-red-700 text-white"
                 disabled={isSubmitting}
               >
@@ -283,7 +370,5 @@ export default function AddCertDetails() {
         </div>
       </main>
     </div>
-  )
+  );
 }
-
-

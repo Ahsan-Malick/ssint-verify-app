@@ -8,6 +8,5 @@ const AddCertDetailsPage = () => {
     </div>
   )
 }
-
 export default AddCertDetailsPage
 

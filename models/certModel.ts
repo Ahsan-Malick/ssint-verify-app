@@ -5,10 +5,14 @@ export interface Certificate extends Document {
   cardNumber: string;
   cardName: string;
   cardSet: string;
-  cardYear: number;
+  cardYear: string;
   grade: string;
   additionalInfo?: string;
+  cardFrontImage: string
+  cardBackImage: string
 }
+
+
 
 const CertificateSchema: Schema = new Schema(
   {
@@ -16,9 +20,19 @@ const CertificateSchema: Schema = new Schema(
     cardNumber: { type: String, required: true },
     cardName: { type: String, required: true },
     cardSet: { type: String, required: true },
-    cardYear: { type: Number, required: true },
+    cardYear: { type: String, required: true },
     grade: { type: String, required: true },
     additionalInfo: { type: String },
+    cardFrontImage: {
+      data: Buffer,
+      contentType: String,
+    
+    },
+    cardBackImage: {
+      data: Buffer,
+      contentType: String,
+   
+    },
   },
   {
     timestamps: true,
