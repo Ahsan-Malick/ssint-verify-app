@@ -80,7 +80,7 @@ const CertInputPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                NOW GRADING PATCH CARDS →
+                SUBMIT HERE →
               </a>
             </div>
           </div>

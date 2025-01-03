@@ -83,6 +83,8 @@ export default function AddCertDetails() {
       toast.success("Certificate Added Successfully")
       setFrontImagePreview(null);
       setBackImagePreview(null);
+      form.reset()
+
       }
     } catch (error) {
     } finally {
