@@ -1,16 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '../../../../utils/db';
 import Certificate from '../../../../models/certModel';
+import { storage, databases } from "../../../appwrite/config"
+import { ID, Query } from "appwrite";
+import conf from "../../../conf/config";
 
 
-export async function  GET({ params }: { params: { certId: string } }) {
+export async function  GET(request:NextRequest, { params }:{params:{ssintId: string}}) {
 
-    await connectDB();
     
-    const {certId} = await params
-    const certDetails = await Certificate.findOne({ssintId: certId })
-    console.log(certDetails)
-    return NextResponse.json({data: certDetails})
+    const {ssintId} = await params
+    const certDetails = await databases.listDocuments(
+        conf.databaseId, // databaseId
+        conf.collectionId, // collectionId
+        [Query.equal("ssintId", String(ssintId))] // queries (optional)
+      );
+    if (certDetails.total>0){ 
+
+        console.log(certDetails.documents[0])
+        
+
+    return NextResponse.json({certDetails: certDetails.documents[0]})
+    }
+    else
+    console.log("i am here")
+    return NextResponse.json({certDetails: null})
+    
 
 }
 

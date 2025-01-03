@@ -2,7 +2,8 @@
 
 import { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Button } from "./ui/button";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Button } from "../../components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,10 +12,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Toast } from "./ui/use-toast";
+} from "../../components/ui/form";
+import { Input } from "../../components/ui/input";
+import { Textarea } from "../../components/ui/textarea";
+
 
 type CardDetails = {
   ssintId: string;
@@ -78,20 +79,12 @@ export default function AddCertDetails() {
         method: "POST",
         body: formData,
       });
-      console.log(response);
-      // Toast({
-      //   title: "Card details saved",
-      //   // description: "The card details have been successfully saved.",
-      // })
-      // form.reset();
+      if (response){
+      toast.success("Certificate Added Successfully")
       setFrontImagePreview(null);
       setBackImagePreview(null);
+      }
     } catch (error) {
-      // Toast({
-      //   title: "Error",
-      //   // description: "There was an error saving the card details.",
-      //   variant: "destructive",
-      // })
     } finally {
       setIsSubmitting(false);
     }
@@ -128,7 +121,18 @@ export default function AddCertDetails() {
           </nav>
         </div>
       </header>
-
+      <ToastContainer
+      position="top-center"
+      autoClose={1000}
+      hideProgressBar={true}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Bounce} />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-2">Add New Card</h1>
@@ -147,11 +151,11 @@ export default function AddCertDetails() {
                       <FormLabel>SSINT ID</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="SSINT-001"
+                          placeholder="SSINT ID"
                           {...field}
                           required
-                          pattern="SSINT-\d{3}"
-                          title="SSINT ID must be in format SSINT-XXX where X is a number"
+                          // pattern="SSINT-\d{3}"
+                          // title="SSINT ID must be in format SSINT-XXX where X is a number"
                         />
                       </FormControl>
                       <FormMessage />
@@ -167,11 +171,11 @@ export default function AddCertDetails() {
                       <FormLabel>Card Number</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="CARD-12345"
+                          placeholder="Card Number"
                           {...field}
                           required
-                          pattern="CARD-\d+"
-                          title="Card number must start with CARD- followed by numbers"
+                          // pattern="CARD-\d+"
+                          // title="Card number must start with CARD- followed by numbers"
                         />
                       </FormControl>
                       <FormMessage />
@@ -187,7 +191,7 @@ export default function AddCertDetails() {
                       <FormLabel>Card Name</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Charizard VMAX"
+                          placeholder="Card Name"
                           {...field}
                           required
                           minLength={2}
@@ -206,7 +210,7 @@ export default function AddCertDetails() {
                       <FormLabel>Card Set</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Champion's Path"
+                          placeholder="Card Set"
                           {...field}
                           required
                           minLength={2}
@@ -225,11 +229,11 @@ export default function AddCertDetails() {
                       <FormLabel>Year</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="2020"
+                          placeholder="Year"
                           {...field}
                           required
                           pattern="\d{4}"
-                          title="Please enter a valid year (YYYY)"
+                          // title="Please enter a valid year (YYYY)"
                         />
                       </FormControl>
                       <FormMessage />
@@ -244,7 +248,7 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Grade</FormLabel>
                       <FormControl>
-                        <Input placeholder="PSA 10" {...field} required />
+                        <Input placeholder="Grade" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -278,7 +282,7 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Front Image</FormLabel>
                       <FormControl>
-                        <div className="flex flex-col items-center">
+                        <div className="flex flex-col items-start">
                           <Input
                             type="file"
                             accept="image/*"
@@ -321,7 +325,7 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Back Image</FormLabel>
                       <FormControl>
-                        <div className="flex flex-col items-center">
+                        <div className="flex flex-col items-start">
                           <Input
                             type="file"
                             accept="image/*"

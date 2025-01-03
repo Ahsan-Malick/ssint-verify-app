@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import connectDB from "../../../utils/db";
-import Certificate from "../../../models/certModel";
-import { promises as fs } from "fs";
 import { storage, databases } from "../../appwrite/config";
 import { ID, Query } from "appwrite";
 import conf from "../../conf/config";
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  await connectDB();
+ 
   const certDetails = await request.formData();
   const ssintId = certDetails.get("ssintId");
   const cardName = certDetails.get("cardName");
@@ -18,6 +15,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   const additionalInfo = certDetails.get("additionalInfo") || "";
   const frontImage = certDetails.get("frontImage");
   const backImage = certDetails.get("backImage");
+  const creationDate = new Date
 
   let frontUrl;
   let backUrl;
@@ -86,6 +84,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
         additionalInfo,
         frontImageUrl: frontUrl,
         backImageUrl: backUrl,
+        creationDate
       };
 
 

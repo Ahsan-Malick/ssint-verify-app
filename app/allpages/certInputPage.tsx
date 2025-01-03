@@ -1,21 +1,38 @@
 'use client'
 import React from 'react'
 import { useState } from 'react'
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
+import { Button } from "../../components/ui/button"
+import { Input } from "../../components/ui/input"
 import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react'
+import { useRouter } from "next/navigation";
 
 
 
 const CertInputPage = () => {
-  const [certificateId, setCertificateId] = useState('')
+  const [ssintId, setSsintId] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Looking up certificate:', certificateId)
+
+    const response = await fetch(`/api/getCertificate/${ssintId}`); //returns a promise
+    const data = await response.json()
+    const certDetails = data.certDetails
+
+    // Navigate to the certificate page with query params
+
+    if(response.status===200){
+    router.push(`/certificate?certDetails=${encodeURIComponent(JSON.stringify(certDetails))}`);
+    }
+    else{
+      router.push(`/certificate?certDetails=${encodeURIComponent(JSON.stringify(certDetails))}`);
+    }
   }
 
   return (
+    <>
+    
     <div className="min-h-screen bg-white">
       {/* Top Banner */}
       <div className="w-full bg-[#f5f5f5] py-2">
@@ -58,9 +75,9 @@ const CertInputPage = () => {
           <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
             <Input
               type="text"
-              placeholder="Enter Certificate ID"
-              value={certificateId}
-              onChange={(e) => setCertificateId(e.target.value)}
+              placeholder="Enter SSINT ID"
+              value={ssintId}
+              onChange={(e) => setSsintId(e.target.value)}
               className="w-full border-gray-200 text-black placeholder-gray-400"
             />
             <Button 
@@ -73,6 +90,7 @@ const CertInputPage = () => {
         </div>
       </main>
     </div>
+    </>
   )
 }
 

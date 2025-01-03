@@ -1,5 +1,5 @@
 import React from 'react'
-import AddCertDetails from '../../components/addCertDetails'
+import AddCertDetails from '../allpages/addCertDetails'
 
 const AddCertDetailsPage = () => {
   return (
