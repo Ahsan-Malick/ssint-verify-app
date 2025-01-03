@@ -41,7 +41,7 @@ export default function CertificateViewer (props: CertificateViewerProps) {
                 src={certDetails.frontImageUrl} 
                 alt="Card Front" 
                 layout="fill" 
-                objectFit="cover"
+                objectFit="contain"
                 className={`bg-gray-200 h-full`}
               />
             </div>
@@ -50,7 +50,7 @@ export default function CertificateViewer (props: CertificateViewerProps) {
                 src={certDetails.backImageUrl}  
                 alt="Card Back" 
                 layout="fill" 
-                objectFit="cover"
+                objectFit="contain"
                 className="bg-gray-200"
               />
             </div>
