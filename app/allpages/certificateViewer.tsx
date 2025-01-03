@@ -35,7 +35,7 @@ export default function CertificateViewer (props: CertificateViewerProps) {
           {/* <h1 className="text-3xl font-bold text-center mb-8 text-indigo-600">Certificate</h1> */}
           
           {/* Card Images */}
-          <div className="flex justify-around mb-8">
+          <div className="flex justify-between sm:flex sm:justify-around mb-8">
             <div className={`relative aspect-[0.72756] xsm:h-[270px] xxsm:h-[250px] h-[215px] sm:h-[345px] md:h-[405px]  rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105`}>
               <Image 
                 src={certDetails.frontImageUrl} 
@@ -49,7 +49,8 @@ export default function CertificateViewer (props: CertificateViewerProps) {
               <Image 
                 src={certDetails.backImageUrl}  
                 alt="Card Back" 
-                layout="fill" 
+                // layout="fill" 
+                fill={true}
                 objectFit="contain"
                 className="bg-gray-200"
               />
