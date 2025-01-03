@@ -27,13 +27,13 @@ const CertInputPage = () => {
     const certDetails = data.certDetails;
 
     // Navigate to the certificate page with query params
-    if (response.status === 200) {
-      setCertLoading(false);
+    if (response.status === 200) {    
       router.push(
         `/certificate?certDetails=${encodeURIComponent(
           JSON.stringify(certDetails)
         )}`
       );
+      setCertLoading(false);
     } else {
       toast.error("Something went wrong while getting certificate");
     }
