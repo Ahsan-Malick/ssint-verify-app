@@ -44,7 +44,7 @@ const CertInputPage = () => {
       <div className="min-h-screen bg-white">
         {/* Top Banner */}
         <div className="w-full bg-[#f5f5f5] py-2">
-          <div className="container mx-auto flex justify-between items-center px-4">
+          <div className="container mx-auto flex justify-between sm:flex sm:justify-between items-center px-2">
             <div className=" flex gap-2 sm:flex sm:gap-4">
               <SocialIcon
                 style={{ width: "25px", height: "25px", borderRadius: "50%" }}
@@ -74,7 +74,7 @@ const CertInputPage = () => {
                 url="https://www.instagram.com/ssintgrading"
               />
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-[10px] sm:text-sm text-gray-600">
               <a
                 href="https://ssintgrading.com/products/new-grading-standard-service"
                 target="_blank"

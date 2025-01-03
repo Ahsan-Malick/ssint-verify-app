@@ -40,9 +40,9 @@ export default function CertificateViewer (props: CertificateViewerProps) {
               <Image 
                 src={certDetails.frontImageUrl} 
                 alt="Card Front" 
-                layout="fill" 
-                objectFit="contain"
-                className={`bg-gray-200 h-full`}
+                fill={true} 
+                objectFit="fill"
+                className={`bg-gray-200`}
               />
             </div>
             <div className="relative aspect-[0.72756] xsm:h-[270px] xxsm:h-[250px] h-[215px] sm:h-[345px] md:h-[405px] rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
@@ -51,7 +51,7 @@ export default function CertificateViewer (props: CertificateViewerProps) {
                 alt="Card Back" 
                 // layout="fill" 
                 fill={true}
-                objectFit="contain"
+                objectFit="fill"
                 className="bg-gray-200"
               />
             </div>
