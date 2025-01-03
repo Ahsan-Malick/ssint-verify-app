@@ -9,6 +9,7 @@ import { Inter, Montserrat } from "next/font/google";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { SocialIcon } from "react-social-icons";
+import RiseLoader from "react-spinners/RiseLoader";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -49,32 +50,38 @@ const CertInputPage = () => {
                 style={{ width: "25px", height: "25px", borderRadius: "50%" }}
                 url="https://x.com/ssintgrading"
               />
-                  {/* Facebook */}
-      <SocialIcon
-        style={{ width: "25px", height: "25px", borderRadius: "50%" }}
-        url="https://www.facebook.com/profile.php?id=61558980641303"
-      />
+              {/* Facebook */}
+              <SocialIcon
+                style={{ width: "25px", height: "25px", borderRadius: "50%" }}
+                url="https://www.facebook.com/profile.php?id=61558980641303"
+              />
 
-      {/* TikTok */}
-      <SocialIcon
-        style={{ width: "25px", height: "25px", borderRadius: "50%" }}
-        url="https://www.tiktok.com/@ssintgrading"
-      />
+              {/* TikTok */}
+              <SocialIcon
+                style={{ width: "25px", height: "25px", borderRadius: "50%" }}
+                url="https://www.tiktok.com/@ssintgrading"
+              />
 
-      {/* YouTube */}
-      <SocialIcon
-        style={{ width: "25px", height: "25px", borderRadius: "50%" }}
-        url="https://www.youtube.com/@ssintgrading"
-      />
+              {/* YouTube */}
+              <SocialIcon
+                style={{ width: "25px", height: "25px", borderRadius: "50%" }}
+                url="https://www.youtube.com/@ssintgrading"
+              />
 
-      {/* Instagram */}
-      <SocialIcon
-        style={{ width: "25px", height: "25px", borderRadius: "50%" }}
-        url="https://www.instagram.com/ssintgrading"
-      />
+              {/* Instagram */}
+              <SocialIcon
+                style={{ width: "25px", height: "25px", borderRadius: "50%" }}
+                url="https://www.instagram.com/ssintgrading"
+              />
             </div>
             <div className="text-sm text-gray-600">
-              NOW GRADING PATCH CARDS →
+              <a
+                href="https://ssintgrading.com/products/new-grading-standard-service"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NOW GRADING PATCH CARDS →
+              </a>
             </div>
           </div>
         </div>
@@ -128,12 +135,20 @@ const CertInputPage = () => {
                 onChange={(e) => setSsintId(e.target.value)}
                 className="w-full border-gray-200 text-black placeholder-gray-400"
               />
-              <Button
-                type="submit"
-                className="w-full bg-red-600 hover:bg-red-700 text-white py-6 rounded-md transition-colors"
-              >
-                Check Certificate
-              </Button>
+              {certLoading ? (
+                <RiseLoader
+                  size={10}
+                  color="red"
+                  loading={certLoading}
+                ></RiseLoader>
+              ) : (
+                <Button
+                  type="submit"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white py-6 rounded-md transition-colors"
+                >
+                  Check Certificate
+                </Button>
+              )}
             </form>
           </div>
         </main>
