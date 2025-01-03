@@ -6,7 +6,7 @@ import { ID, Query } from "appwrite";
 import conf from "../../../conf/config";
 
 
- export async function  GET(_request:NextRequest, _response: NextResponse, { params }:{params:{ssintId: string}}) {
+ export async function  GET(_response:NextResponse, { params }:{params:{ssintId: string}}) {
 
     const {ssintId} = await params
     const certDetails = await databases.listDocuments(
