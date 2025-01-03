@@ -3,7 +3,7 @@ import { storage, databases } from "../../appwrite/config";
 import { ID, Query } from "appwrite";
 import conf from "../../conf/config";
 
-export async function POST(request: NextRequest, response: NextResponse) {
+ export async function POST(request: NextRequest) {
  
   const certDetails = await request.formData();
   const ssintId = certDetails.get("ssintId");
