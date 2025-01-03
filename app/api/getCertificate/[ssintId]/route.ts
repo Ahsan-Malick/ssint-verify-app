@@ -22,7 +22,6 @@ import conf from "../../../conf/config";
     return NextResponse.json({certDetails: certDetails.documents[0]})
     }
     else
-    console.log("i am here")
     return NextResponse.json({certDetails: null})
     
 
