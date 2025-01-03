@@ -45,7 +45,7 @@ const CertInputPage = () => {
         {/* Top Banner */}
         <div className="w-full bg-[#f5f5f5] py-2">
           <div className="container mx-auto flex justify-between items-center px-4">
-            <div className="flex gap-4">
+            <div className=" flex gap-2 sm:flex sm:gap-4">
               <SocialIcon
                 style={{ width: "25px", height: "25px", borderRadius: "50%" }}
                 url="https://x.com/ssintgrading"
