@@ -116,12 +116,12 @@ const CertInputPage = () => {
             <h1
               className={`text-5xl font-bold text-black tracking-wide ${montserrat.className}`}
             >
-              Your Collection, Elevated
+              SSINT REGISTER
             </h1>
             <p
               className={`text-gray-600 text-lg tracking-widest uppercase font-normal ${montserrat.className}`}
             >
-              SPECIALISED SERVICES IN INSPECTION AND NOTATION OF TREASURES
+              Verified, Secured, Trusted
             </p>
 
             <form
