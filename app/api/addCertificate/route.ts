@@ -19,11 +19,38 @@ import conf from "../../conf/config";
 
   let frontUrl;
   let backUrl;
+  // let population;
+  // let popHigh;
 
   const cardImages = {
     frontImage,
     backImage,
   };
+
+  // Fetch current card details using ssintId
+  const currentCard = await databases.getDocument(conf.databaseId, conf.collectionId, String(cardName));
+  const serialNumber = currentCard.cardNumber
+  const name = currentCard.cardNumber
+  const year = currentCard.cardYear
+  const set = currentCard.cardSet
+  const gradeVal = currentCard.grade
+
+
+  // Query to get all cards with the same name, serial number, year and set
+  const population = await databases.listDocuments(conf.databaseId, conf.collectionId, [
+    Query.equal('cardName', name),
+    Query.equal('cardNumber', serialNumber),
+    Query.equal('cardSet', set),
+    Query.equal('cardYear', year),
+  ]);
+
+   // Query to find cards with the same name, serial number, and grade higher than the current card
+   const popHigher = await databases.listDocuments(conf.databaseId, conf.collectionId, [
+    Query.equal('name', name),
+    Query.equal('serialNumber', serialNumber),
+    Query.greaterThan('grade', Number(gradeVal)),
+  ]);
+  
 
   
   //find document with specific ssint id, if it doesnt exist then create else not
@@ -84,7 +111,8 @@ import conf from "../../conf/config";
         additionalInfo,
         frontImageUrl: frontUrl,
         backImageUrl: backUrl,
-        creationDate
+        population,
+        popHigher
       };
 
 

@@ -305,7 +305,7 @@ export default function AddCertDetails() {
                             Upload Front Image
                           </Button>
                           {frontImagePreview && (
-                            <Image
+                            <img
                               src={frontImagePreview}
                               alt="Front of card"
                               className="mt-2 max-w-full h-auto max-h-40 object-contain"
@@ -348,7 +348,7 @@ export default function AddCertDetails() {
                             Upload Back Image
                           </Button>
                           {backImagePreview && (
-                            <Image
+                            <img
                               src={backImagePreview}
                               alt="Back of card"
                               className="mt-2 max-w-full h-auto max-h-40 object-contain"

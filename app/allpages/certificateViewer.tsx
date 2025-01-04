@@ -59,17 +59,19 @@ export default function CertificateViewer (props: CertificateViewerProps) {
           {/* Card Details */}
           <Card className="bg-gradient-to-r from-indigo-50 to-purple-50">
             <CardContent className="p-6">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <DetailItem label="SSINT ID" value={certDetails.ssintId} />
                 <DetailItem label="Card Number" value={certDetails.cardNumber} />
                 <DetailItem label="Card Name" value={certDetails.cardName} />
                 <DetailItem label="Card Set" value={certDetails.cardSet} />
                 <DetailItem label="Year" value={certDetails.cardYear} />
                 <DetailItem label="Grade" value={certDetails.grade} />
+                <DetailItem label="Population" value={certDetails.population}/>
+                <DetailItem label="Pop Higher" value= {certDetails.popHigher}/>
               </div>
-              <div className="mt-6">
+              <div className="mt-8 bg-white p-4 rounded-lg shadow-sm">
                 <h3 className="text-lg font-semibold mb-2 text-indigo-700">Additional Information</h3>
-                <p className="text-gray-700">{certDetails.additionalInfo}</p>
+                <p className="text-gray-700 leading-relaxed">{certDetails.additionalInfo}</p>
               </div>
             </CardContent>
           </Card>
@@ -83,9 +85,9 @@ export default function CertificateViewer (props: CertificateViewerProps) {
 
 function DetailItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="animate-fadeIn">
-      <p className="text-sm font-medium text-gray-500">{label}</p>
-      <p className="mt-1 text-lg font-semibold text-gray-900">{value}</p>
+    <div className="animate-fadeIn bg-white p-3 rounded-lg shadow-sm">
+      <p className="text-sm font-medium text-gray-500 mb-1">{label}</p>
+      <p className="text-lg font-semibold text-gray-900">{value}</p>
     </div>
   )
 }
