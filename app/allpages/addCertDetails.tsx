@@ -15,6 +15,7 @@ import {
 } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
+import Image from "next/image";
 
 
 type CardDetails = {
@@ -304,7 +305,7 @@ export default function AddCertDetails() {
                             Upload Front Image
                           </Button>
                           {frontImagePreview && (
-                            <img
+                            <Image
                               src={frontImagePreview}
                               alt="Front of card"
                               className="mt-2 max-w-full h-auto max-h-40 object-contain"
@@ -347,7 +348,7 @@ export default function AddCertDetails() {
                             Upload Back Image
                           </Button>
                           {backImagePreview && (
-                            <img
+                            <Image
                               src={backImagePreview}
                               alt="Back of card"
                               className="mt-2 max-w-full h-auto max-h-40 object-contain"
