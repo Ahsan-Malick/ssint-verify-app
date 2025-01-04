@@ -8,7 +8,7 @@ import conf from "../../../conf/config";
 
  export async function  GET(_request:NextRequest, { params }: any) {
 
-    const {ssintId} = params
+    const {ssintId} = await params
     const certDetails = await databases.listDocuments(
         conf.databaseId, // databaseId
         conf.collectionId, // collectionId
@@ -16,7 +16,7 @@ import conf from "../../../conf/config";
       );
     if (certDetails.total>0){ 
 
-        console.log(certDetails.documents[0])
+        // console.log(certDetails.documents[0])
         
 
     return NextResponse.json({certDetails: certDetails.documents[0]})

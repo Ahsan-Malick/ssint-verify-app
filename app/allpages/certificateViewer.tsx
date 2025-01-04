@@ -68,6 +68,7 @@ export default function CertificateViewer (props: CertificateViewerProps) {
                 <DetailItem label="Grade" value={certDetails.grade} />
                 <DetailItem label="Population" value={certDetails.population}/>
                 <DetailItem label="Pop Higher" value= {certDetails.popHigher}/>
+                <DetailItem label="Label Type" value= "Aluminium Laser Engraved"/>
               </div>
               <div className="mt-8 bg-white p-4 rounded-lg shadow-sm">
                 <h3 className="text-lg font-semibold mb-2 text-indigo-700">Additional Information</h3>

@@ -80,14 +80,17 @@ export default function AddCertDetails() {
         method: "POST",
         body: formData,
       });
-      if (response){
+      if (response.status===200){
       toast.success("Certificate Added Successfully")
       setFrontImagePreview(null);
       setBackImagePreview(null);
-      form.reset()
-
+      // form.reset()
+      }
+      else {
+        toast.error("Oops! failed to add certificate")
       }
     } catch (error) {
+      toast.error(`${error}`)
     } finally {
       setIsSubmitting(false);
     }
@@ -102,7 +105,6 @@ export default function AddCertDetails() {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (side === "front") {
-          console.log(reader.result);
           setFrontImagePreview(reader.result as string);
           form.setValue("frontImage", file);
         } else {
