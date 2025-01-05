@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+
 
 interface CertificateViewerProps {
   certDetails: any; // Replace `any` with the specific type of `certDetails` if you know it
@@ -25,13 +25,12 @@ export default function CertificateViewer(props: CertificateViewerProps) {
           <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
             <div className="p-8">
               <div className="flex flex-col items-end sm:items-center mb-8 relative">
-                <Button
+                <Button asChild
                   variant="outline"
                   size="sm"
                   className="absolute left-0 top-0 flex items-center text-gray-600 hover:text-gray-800"
                 >
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Home
+                  <Link href="/">← Home</Link>
                 </Button>
                 <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
                   SSINT GRADING
