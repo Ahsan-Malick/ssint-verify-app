@@ -32,7 +32,7 @@ export default function CertificateViewer(props: CertificateViewerProps) {
                 >
                   <Link href="/">← Home</Link>
                 </Button>
-                <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+                <h2 className="xsm:text-xl sm:text-2xl font-semibold text-gray-800">
                   SSINT GRADING
                 </h2>
                 {/* <p className="text-sm text-gray-600">
