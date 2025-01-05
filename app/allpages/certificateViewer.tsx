@@ -21,9 +21,9 @@ export default function CertificateViewer(props: CertificateViewerProps) {
   return (
     <>
       {certDetails ? (
-        <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200 p-8">
+        <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200 p-3 sm:p-8">
           <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
-            <div className="p-8">
+            <div className="p-3 xsm:p-6 sm:p-8">
               <div className="flex flex-col items-end sm:items-center mb-8 relative">
                 <Button asChild
                   variant="outline"
