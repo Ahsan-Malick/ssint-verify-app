@@ -16,6 +16,7 @@
     "appwrite": "^16.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "formidable": "^3.5.2",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.469.0",
@@ -29,6 +30,7 @@
     "react-toastify": "^11.0.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
+    "xlsx": "^0.18.5",
     "zod": "^3.24.1"
   },
   "devDependencies": {

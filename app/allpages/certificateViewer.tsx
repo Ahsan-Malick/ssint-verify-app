@@ -37,22 +37,26 @@ export default function CertificateViewer (props: CertificateViewerProps) {
           {/* Card Images */}
           <div className="flex justify-between sm:flex sm:justify-around mb-8">
             <div className={`relative aspect-[0.63] xxsm:aspect-[0.72756] xsm:h-[270px] xxsm:h-[250px] h-[200px] sm:h-[345px] md:h-[405px]  rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105`}>
-              <Image 
-                src={certDetails.frontImageUrl} 
+              {/* <Image 
+                src={certDetails.frontImageUrl}
+                  
                 alt="Card Front" 
                 fill={true} 
                 objectFit="fill"
                 className={`bg-gray-200`}
-              />
+              /> */}
+              <p>No Image Provided</p>
             </div>
             <div className="relative aspect-[0.63] xxsm:aspect-[0.72756] xsm:h-[270px] xxsm:h-[250px] h-[200px] sm:h-[345px] md:h-[405px] rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-              <Image 
-                src={certDetails.backImageUrl}  
+              
+              {/* <Image 
+                src={certDetails.backImageUrl}
                 alt="Card Back" 
                 fill={true}
                 objectFit="fill"
                 className="bg-gray-200"
-              />
+              /> */}
+              <p>No Image Provided</p>
             </div>
           </div>
           
@@ -68,6 +72,7 @@ export default function CertificateViewer (props: CertificateViewerProps) {
                 <DetailItem label="Grade" value={certDetails.grade} />
                 <DetailItem label="Population" value={certDetails.population}/>
                 <DetailItem label="Pop Higher" value= {certDetails.popHigher}/>
+                <DetailItem label="Card Publisher" value= {certDetails.cardPublisher}/>
                 <DetailItem label="Label Type" value= "Aluminium Laser Engraved"/>
               </div>
               <div className="mt-8 bg-white p-4 rounded-lg shadow-sm">

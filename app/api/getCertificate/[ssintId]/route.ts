@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '../../../../utils/db';
-import Certificate from '../../../../models/certModel';
-import { storage, databases } from "../../../appwrite/config"
-import { ID, Query } from "appwrite";
+import { databases } from "../../../appwrite/config"
+import { Query } from "appwrite";
 import conf from "../../../conf/config";
 
 
@@ -15,8 +13,6 @@ import conf from "../../../conf/config";
         [Query.equal("ssintId", String(ssintId))] // queries (optional)
       );
     if (certDetails.total>0){ 
-
-        // console.log(certDetails.documents[0])
         
 
     return NextResponse.json({certDetails: certDetails.documents[0]})
