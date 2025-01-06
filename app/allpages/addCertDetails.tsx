@@ -1,8 +1,8 @@
 "use client";
 
-import { useState} from "react";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Bounce, ToastContainer, toast } from "react-toastify";
 import { Button } from "../../components/ui/button";
 import {
   Form,
@@ -17,7 +17,6 @@ import { Input } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
 import Image from "next/image";
 
-
 type CardDetails = {
   ssintId: string;
   cardNumber: string;
@@ -26,6 +25,7 @@ type CardDetails = {
   cardYear: string;
   grade: string;
   additionalInfo: string;
+  cardPublisher: string;
   frontImage: File | string;
   backImage: File | string;
 };
@@ -46,6 +46,7 @@ export default function AddCertDetails() {
       cardYear: "",
       grade: "",
       additionalInfo: "",
+      cardPublisher: "",
       frontImage: "",
       backImage: "",
     },
@@ -63,6 +64,7 @@ export default function AddCertDetails() {
         cardYear,
         grade,
         additionalInfo,
+        cardPublisher,
         frontImage,
         backImage,
       } = data;
@@ -72,6 +74,7 @@ export default function AddCertDetails() {
       formData.append("cardSet", cardSet);
       formData.append("cardYear", cardYear.toString()); // Convert number to string
       formData.append("grade", grade);
+      formData.append("cardPublisher", cardPublisher);
       formData.append("additionalInfo", additionalInfo || "");
       formData.append("frontImage", frontImage);
       formData.append("backImage", backImage);
@@ -80,17 +83,22 @@ export default function AddCertDetails() {
         method: "POST",
         body: formData,
       });
-      if (response.status===200){
-      toast.success("Certificate Added Successfully")
-      setFrontImagePreview(null);
-      setBackImagePreview(null);
-      // form.reset()
+      const responseVal = await response.json();
+      if (responseVal === "Added") {
+        
+        toast.success("Certificate Added Successfully");
+        setFrontImagePreview(null);
+        setBackImagePreview(null);
+        // form.reset()
       }
-      else {
-        toast.error("Oops! failed to add certificate")
+      else if(responseVal === "Exist"){
+        toast.error("Certificate Already Exists");
+      }
+       else {
+        toast.error("Oops! failed to add certificate");
       }
     } catch (error) {
-      toast.error(`${error}`)
+      toast.error(`${error}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -127,17 +135,18 @@ export default function AddCertDetails() {
         </div>
       </header>
       <ToastContainer
-      position="top-center"
-      autoClose={1000}
-      hideProgressBar={true}
-      newestOnTop={false}
-      closeOnClick={false}
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="light"
-      transition={Bounce} />
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-2">Add New Card</h1>
@@ -254,6 +263,24 @@ export default function AddCertDetails() {
                       <FormLabel>Grade</FormLabel>
                       <FormControl>
                         <Input placeholder="Grade" {...field} required />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="cardPublisher"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Card Publisher</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Card Publisher"
+                          {...field}
+                          required
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

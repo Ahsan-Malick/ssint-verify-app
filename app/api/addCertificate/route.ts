@@ -10,7 +10,8 @@ export async function POST(request: NextRequest) {
   const cardNumber = certDetails.get("cardNumber");
   const cardSet = certDetails.get("cardSet");
   const cardYear = certDetails.get("cardYear");
-  const grade = certDetails.get("grade");
+  const grade = Number(certDetails.get("grade"));
+  const cardPublisher = certDetails.get("cardPublisher")
   const additionalInfo = certDetails.get("additionalInfo") || "";
   const frontImage = certDetails.get("frontImage");
   const backImage = certDetails.get("backImage");
@@ -103,6 +104,7 @@ export async function POST(request: NextRequest) {
         cardYear,
         grade,
         additionalInfo,
+        cardPublisher,
         frontImageUrl: frontUrl,
         backImageUrl: backUrl,
         population,
@@ -150,27 +152,6 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // similarCards.forEach(async (existingCard) => {
-      //   await databases.updateDocument(conf.databaseId, conf.collectionId, existingCard.$id, {
-      //         population: newPopulation,
-      //       })
-      //   if (existingCard.grade < (grade??0)) {
-      //     const updatedPopHigh = similarCards.filter((c) => c.grade > existingCard.grade).length + 1; // Include the new card
-      //     await databases.updateDocument(conf.databaseId, conf.collectionId, existingCard.$id, {
-      //       popHigh: updatedPopHigh,
-      //     });
-      //   }
-      // });
-
-      //  // Query to find cards with the same name, serial number, and grade higher than the current card
-      //  const popHigherQ = await databases.listDocuments(conf.databaseId, conf.collectionId, [
-      //   Query.equal('cardName', name),
-      //   Query.equal('cardNumber', serialNumber),
-      //   Query.greaterThan('grade', String(gradeVal)),
-      // ]);
-
-      // population = populationQ.documents.length+1
-      // popHigher = popHigherQ.documents.length
     } else {
       console.log("I am else");
 
@@ -232,9 +213,10 @@ export async function POST(request: NextRequest) {
         // permissions (optional)
       );
 
-      return NextResponse.json("Certificate Added Successfully");
+      return NextResponse.json("Added");
     }
   }
+
 
   return NextResponse.json("Exist");
 }
