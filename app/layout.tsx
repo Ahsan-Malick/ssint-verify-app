@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ssint-registry-app",
+  title: "SSINT. Registry",
   description: "Verified, Secured, Trusted",
   icons: {
     icon: [
