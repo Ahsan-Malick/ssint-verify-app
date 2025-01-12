@@ -18,6 +18,8 @@ export default function CertificateViewer(props: CertificateViewerProps) {
     timeStyle: "short", // e.g., "10:32 AM"
   }).format(date);
 
+  console.log(certDetails.frontImageUrl)
+
   return (
     <>
       {certDetails ? (
@@ -46,26 +48,32 @@ export default function CertificateViewer(props: CertificateViewerProps) {
                 <div
                   className={`relative aspect-[0.63] xxsm:aspect-[0.72756] xsm:h-[270px] xxsm:h-[250px] h-[200px] sm:h-[345px] md:h-[405px]  rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105`}
                 >
-                  {/* <Image 
+                  {certDetails.frontImageUrl?
+                  <Image 
                 src={certDetails.frontImageUrl}
                   
                 alt="Card Front" 
                 fill={true} 
                 objectFit="fill"
                 className={`bg-gray-200`}
-              /> */}
-                  <p>No Image Provided</p>
+              />
+                  : <p>No Image Provided</p>
+}
                 </div>
                 <div className="relative aspect-[0.63] xxsm:aspect-[0.72756] xsm:h-[270px] xxsm:h-[250px] h-[200px] sm:h-[345px] md:h-[405px] rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-                  {/* <Image 
+                  {certDetails.backImageUrl?
+                  <Image 
                 src={certDetails.backImageUrl}
                 alt="Card Back" 
                 fill={true}
                 objectFit="fill"
                 className="bg-gray-200"
-              /> */}
-                  <p>No Image Provided</p>
+              />
+                 :  <p>No Image Provided</p> 
+}
+
                 </div>
+                  
               </div>
 
               {/* Card Details */}
