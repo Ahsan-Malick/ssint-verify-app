@@ -35,7 +35,7 @@ export default function CertificateViewer(props: CertificateViewerProps) {
                   <Link href="/">← Home</Link>
                 </Button>
                 <h2 className="xsm:text-xl sm:text-2xl font-semibold text-gray-800">
-                  SSINT GRADING
+                  SSINT. GRADING
                 </h2>
                 {/* <p className="text-sm text-gray-600">
               Created on: {formattedDate} 
@@ -80,7 +80,7 @@ export default function CertificateViewer(props: CertificateViewerProps) {
               <Card className="bg-gradient-to-r from-indigo-50 to-purple-50">
                 <CardContent className="p-6">
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    <DetailItem label="SSINT ID" value={certDetails.ssintId} />
+                    <DetailItem label="SSINT. ID" value={certDetails.ssintId} />
                     <DetailItem
                       label="Card Number"
                       value={certDetails.cardNumber}
