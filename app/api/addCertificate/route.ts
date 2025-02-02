@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
   const cardSet = certDetails.get("cardSet");
   const cardYear = certDetails.get("cardYear");
   const grade = Number(certDetails.get("grade"));
-  const cardPublisher = certDetails.get("cardPublisher")
+  const cardPublisher = certDetails.get("cardPublisher");
   const additionalInfo = certDetails.get("additionalInfo") || "";
   const frontImage = certDetails.get("frontImage");
   const backImage = certDetails.get("backImage");
@@ -27,6 +27,9 @@ export async function POST(request: NextRequest) {
     conf.collectionId, // collectionId
     [Query.equal("ssintId", String(ssintId))] // queries (optional)
   );
+
+
+
 
   if (isCert.total === 0) {
     // Fetch current card details using ssintId
@@ -151,10 +154,8 @@ export async function POST(request: NextRequest) {
           );
         }
       }
-
+      return NextResponse.json("Added");
     } else {
-      console.log("I am else");
-
       if (frontImage instanceof File) {
         const file = await storage.createFile(
           conf.bucketId, // bucketId
@@ -199,6 +200,7 @@ export async function POST(request: NextRequest) {
         cardYear,
         grade,
         additionalInfo,
+        cardPublisher,
         frontImageUrl: frontUrl,
         backImageUrl: backUrl,
         population,
@@ -215,8 +217,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json("Added");
     }
+  } else {
+    return NextResponse.json("Exist");
   }
-
-
-  return NextResponse.json("Exist");
 }

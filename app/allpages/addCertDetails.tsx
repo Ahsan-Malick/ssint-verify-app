@@ -84,8 +84,8 @@ export default function AddCertDetails() {
         body: formData,
       });
       const responseVal = await response.json();
+    
       if (responseVal === "Added") {
-        
         toast.success("Certificate Added Successfully");
         setFrontImagePreview(null);
         setBackImagePreview(null);
