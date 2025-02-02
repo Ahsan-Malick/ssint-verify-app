@@ -89,7 +89,7 @@ export default function AddCertDetails() {
         toast.success("Certificate Added Successfully");
         setFrontImagePreview(null);
         setBackImagePreview(null);
-        // form.reset()
+        form.reset()
       }
       else if(responseVal === "Exist"){
         toast.error("Certificate Already Exists");
