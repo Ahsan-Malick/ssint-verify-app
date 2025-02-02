@@ -18,7 +18,7 @@ export default function CertificateViewer(props: CertificateViewerProps) {
     timeStyle: "short", // e.g., "10:32 AM"
   }).format(date);
 
-  console.log(certDetails.frontImageUrl)
+  
 
   return (
     <>
