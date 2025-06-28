@@ -25,9 +25,7 @@ function SearchParamsComp() {
 
 const CertificatePage = () => {
 
-  // const searchParams = useSearchParams();
-  // const certDetails = searchParams.get('certDetails');
-  // const parsedCertDetails = certDetails ? JSON.parse(decodeURIComponent(certDetails)) : null;
+  
 
   return (
  <Suspense>
