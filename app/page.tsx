@@ -1,6 +1,6 @@
-import Image from "next/image";
+
 import CertInputPage from "./allpages/certInputPage";
-import mongoose from 'mongoose';
+
 
 
 
