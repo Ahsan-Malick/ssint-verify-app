@@ -10,7 +10,7 @@ import html2canvas from "html2canvas-pro";
 import jsPDF from "jspdf";
 import { Download } from "lucide-react";
 import { notFound } from "next/navigation";
-import { useParams } from 'next/navigation'
+import { useParams } from "next/navigation";
 
 export interface DetailsForReport {
   ssint_id: string;
@@ -95,33 +95,26 @@ export interface GradeResult {
 
 export default function AddReportLayout({
   children,
-
 }: {
   children: React.ReactNode;
- 
 }) {
   return (
     <TradingCardProvider>
-      <AddReportLayoutInner >{children}</AddReportLayoutInner>
+      <AddReportLayoutInner>{children}</AddReportLayoutInner>
     </TradingCardProvider>
   );
 }
 
-function AddReportLayoutInner({ children}: { children: React.ReactNode}) {
+function AddReportLayoutInner({ children }: { children: React.ReactNode }) {
   const { gradedTradingCard, setGradedTradingCard } = useTradingCard();
-  const params = useParams<{ssintId: string}>();
+  const params = useParams<{ ssintId: string }>();
   const ssintId = params?.ssintId;
-  if (!ssintId) {
-    return notFound();
-  }
 
-  // const [ssintId, setSsintId] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!ssintId.trim()) return;
-    setLoading(true);
-    console.log("Fetching report for SSINT ID:", ssintId);
+
+   
 
     try {
       // Replace this with your actual fetch call
@@ -146,8 +139,6 @@ function AddReportLayoutInner({ children}: { children: React.ReactNode}) {
       setGradedTradingCard(reportData);
     } catch (err) {
       console.error("Failed to fetch card", err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -180,7 +171,7 @@ function AddReportLayoutInner({ children}: { children: React.ReactNode}) {
 
   useEffect(() => {
     handleSubmit();
-  }, []);
+  });
 
   if (!gradedTradingCard) {
     return (
@@ -192,15 +183,19 @@ function AddReportLayoutInner({ children}: { children: React.ReactNode}) {
 
   return (
     <>
-      <main ref={reportRef} id="report-content">
-        <Download
-          className="bg-green-400 p-2 mx-auto hover:cursor-pointer  text-white  rounded-md"
-          onClick={downloadPDF}
-          width={40}
-          height={30}
-        ></Download>
-        {children}
-      </main>
+      {!ssintId ? (
+        notFound()
+      ) : (
+        <main ref={reportRef} id="report-content">
+          <Download
+            className="bg-green-400 p-2 mx-auto hover:cursor-pointer  text-white  rounded-md"
+            onClick={downloadPDF}
+            width={40}
+            height={30}
+          ></Download>
+          {children}
+        </main>
+      )}
     </>
   );
 }
