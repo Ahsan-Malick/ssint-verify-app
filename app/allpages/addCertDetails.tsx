@@ -15,7 +15,7 @@ import {
 } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
-import Image from "next/image";
+
 
 type CardDetails = {
   ssintId: string;
@@ -69,17 +69,17 @@ export default function AddCertDetails() {
         backImage,
       } = data;
       formData.append("ssintId", ssintId);
-      formData.append("cardName", cardName);
-      formData.append("cardNumber", cardNumber);
-      formData.append("cardSet", cardSet);
-      formData.append("cardYear", cardYear.toString()); // Convert number to string
-      formData.append("grade", grade);
-      formData.append("cardPublisher", cardPublisher);
-      formData.append("additionalInfo", additionalInfo || "");
+      // formData.append("cardName", cardName);
+      // formData.append("cardNumber", cardNumber);
+      // formData.append("cardSet", cardSet);
+      // formData.append("cardYear", cardYear.toString()); // Convert number to string
+      // formData.append("grade", grade);
+      // formData.append("cardPublisher", cardPublisher);
+      // formData.append("additionalInfo", additionalInfo || "");
       formData.append("frontImage", frontImage);
       formData.append("backImage", backImage);
 
-      const response = await fetch("/api/addCertificate", {
+      const response = await fetch("/api/add-cert-image", {
         method: "POST",
         body: formData,
       });
@@ -187,7 +187,7 @@ export default function AddCertDetails() {
                         <Input
                           placeholder="Card Number"
                           {...field}
-                          required
+                          
                           // pattern="CARD-\d+"
                           // title="Card number must start with CARD- followed by numbers"
                         />
@@ -207,7 +207,7 @@ export default function AddCertDetails() {
                         <Input
                           placeholder="Card Name"
                           {...field}
-                          required
+                          
                           minLength={2}
                         />
                       </FormControl>
@@ -226,7 +226,7 @@ export default function AddCertDetails() {
                         <Input
                           placeholder="Card Set"
                           {...field}
-                          required
+                          
                           minLength={2}
                         />
                       </FormControl>
@@ -245,7 +245,7 @@ export default function AddCertDetails() {
                         <Input
                           placeholder="Year"
                           {...field}
-                          required
+                          
                           pattern="\d{4}"
                           // title="Please enter a valid year (YYYY)"
                         />
@@ -262,7 +262,7 @@ export default function AddCertDetails() {
                     <FormItem>
                       <FormLabel>Grade</FormLabel>
                       <FormControl>
-                        <Input placeholder="Grade" {...field} required />
+                        <Input placeholder="Grade" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -279,7 +279,7 @@ export default function AddCertDetails() {
                         <Input
                           placeholder="Card Publisher"
                           {...field}
-                          required
+                          
                         />
                       </FormControl>
                       <FormMessage />

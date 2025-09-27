@@ -14,11 +14,9 @@ export async function POST(request: NextRequest) {
   const grade = gradeString ? parseFloat(String(gradeString)) : 0;
   const cardPublisher = certDetails.get("cardPublisher");
   const additionalInfo = certDetails.get("additionalInfo") || "";
-  const frontImage = certDetails.get("frontImage");
-  const backImage = certDetails.get("backImage");
 
-  let frontUrl;
-  let backUrl;
+
+
   let population;
   let popHigher;
 
@@ -28,9 +26,6 @@ export async function POST(request: NextRequest) {
     conf.collectionId, // collectionId
     [Query.equal("ssintId", String(ssintId))] // queries (optional)
   );
-
-
-
 
   if (isCert.total === 0) {
     // Fetch current card details using ssintId
@@ -64,42 +59,6 @@ export async function POST(request: NextRequest) {
       // Calculate the new population value (current similar cards + 1)
       const newPopulation = similarCards.length + 1;
 
-      if (frontImage instanceof File) {
-        const file = await storage.createFile(
-          conf.bucketId, // bucketId
-          ID.unique(), // fileId
-          frontImage // file
-          // permissions (optional)
-        );
-
-        const fileId = file.$id;
-
-        const url = storage.getFileView(
-          conf.bucketId, // bucketId
-          fileId // fileId
-        );
-
-        frontUrl = url;
-      }
-
-      if (backImage instanceof File) {
-        const file = await storage.createFile(
-          conf.bucketId, // bucketId
-          ID.unique(), // fileId
-          backImage // file
-          // permissions (optional)
-        );
-
-        const fileId = file.$id;
-
-        const url = storage.getFileView(
-          conf.bucketId, // bucketId
-          fileId // fileId
-        );
-
-        backUrl = url;
-      }
-
       const certData = {
         ssintId,
         cardName,
@@ -109,11 +68,11 @@ export async function POST(request: NextRequest) {
         grade,
         additionalInfo,
         cardPublisher,
-        frontImageUrl: frontUrl,
-        backImageUrl: backUrl,
         population,
         popHigher,
       };
+
+      
 
       const newCardPopHigher = similarCards.filter(
         (c) => c.grade > (certData.grade ?? 0)
@@ -157,42 +116,6 @@ export async function POST(request: NextRequest) {
       }
       return NextResponse.json("Added");
     } else {
-      if (frontImage instanceof File) {
-        const file = await storage.createFile(
-          conf.bucketId, // bucketId
-          ID.unique(), // fileId
-          frontImage // file
-          // permissions (optional)
-        );
-
-        const fileId = file.$id;
-
-        const url = storage.getFileView(
-          conf.bucketId, // bucketId
-          fileId // fileId
-        );
-
-        frontUrl = url;
-      }
-
-      if (backImage instanceof File) {
-        const file = await storage.createFile(
-          conf.bucketId, // bucketId
-          ID.unique(), // fileId
-          backImage // file
-          // permissions (optional)
-        );
-
-        const fileId = file.$id;
-
-        const url = storage.getFileView(
-          conf.bucketId, // bucketId
-          fileId // fileId
-        );
-
-        backUrl = url;
-      }
-
       const certData = {
         ssintId,
         cardName,
@@ -202,8 +125,7 @@ export async function POST(request: NextRequest) {
         grade,
         additionalInfo,
         cardPublisher,
-        frontImageUrl: frontUrl,
-        backImageUrl: backUrl,
+
         population,
         popHigher,
       };

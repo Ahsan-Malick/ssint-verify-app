@@ -1,15 +1,9 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../../components/ui/card";
+
+
 import { Button } from "../../../components/ui/button";
-import { Badge } from "../../../components/ui/badge";
-import { Label } from "../../../components/ui/label";
+
 import { Separator } from "../../../components/ui/separator";
 import { Download } from "lucide-react";
 import jsPDF from "jspdf";

@@ -1,8 +1,8 @@
 "use client"
 
 import React from 'react'
-import { useState } from 'react'
-import AddCertDetails from '../allpages/addCertDetails'
+
+import AddCertImages from '../allpages/addImages'
 
 const AddCertDetailsPage = () => {
 
@@ -19,7 +19,7 @@ const AddCertDetailsPage = () => {
           className="border p-2 rounded"/>
            
     </div>: */}
-    <AddCertDetails></AddCertDetails>
+    <AddCertImages></AddCertImages>
 
     </div>
   )

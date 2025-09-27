@@ -9,7 +9,7 @@ import conf from "../../../conf/config";
     const {ssintId} = await params
     const certDetails = await databases.listDocuments(
         conf.databaseId, // databaseId
-        conf.collectionId, // collectionId
+        conf.collectionIdCert, // collectionId
         [Query.equal("ssintId", String(ssintId))] // queries (optional)
       );
     if (certDetails.total>0){ 
