@@ -171,7 +171,7 @@ function AddReportLayoutInner({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     handleSubmit();
-  });
+  },[]);
 
   if (!gradedTradingCard) {
     return (

@@ -28,7 +28,7 @@ export default function CardDetails() {
 
   const frontImageUrl = gradedTradingCard?.frontImageUrl;
   const backImageUrl = gradedTradingCard?.backImageUrl;
-  console.log("Front Image URL:", frontImageUrl);
+
   
 
   const [frontBase64, setFrontBase64] = useState<string | null>(null);
@@ -86,8 +86,8 @@ export default function CardDetails() {
               <div className="relative aspect-[3/4] border-2 border-gradient-to-r from-blue-200 to-purple-200 rounded-xl overflow-hidden hover:from-blue-300 hover:to-purple-300 transition-all duration-300 shadow-md hover:shadow-lg group">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <Image
-                  // src={frontImageUrl || "/placeholder.svg"}
-                  src="https://cloud.appwrite.io/v1/storage/buckets/6775a4990027d4965a7d/files/68ceb34700192d737a1f/view?project=67756cb000335c15693f"
+                  src={frontBase64 || "/placeholder.svg"}
+                  
                   alt="Card front"
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -106,7 +106,7 @@ export default function CardDetails() {
               <div className="relative aspect-[3/4] border-2 border-gradient-to-r from-purple-200 to-blue-200 rounded-xl overflow-hidden hover:from-purple-300 hover:to-blue-300 transition-all duration-300 shadow-md hover:shadow-lg group">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <Image
-                  src={backImageUrl || "/placeholder.svg"}
+                  src={backBase64 || "/placeholder.svg"}
                   alt="Card back"
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -239,7 +239,7 @@ export default function CardDetails() {
             <div className="space-y-2">
               <Label className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
                 <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
-                AI Grade
+                FInal Grade
               </Label>
               <Input
                 className={`${getGradeShadowColor(

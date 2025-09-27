@@ -99,21 +99,7 @@ export default function DamageBreakDown() {
             <p className="text-gray-600">Defect counts for front and back sides of the card</p>
           </div>
 
-      {/* {damageCategories.map(
-        ({ key, dataFront, dataBack, gradeFront, gradeBack }, index) => (
-          <div key={index}>
-            {renderDamageCategory(
-              key,
-              dataFront,
-              dataBack,
-              damageImageData,
-              setDamageImagesData,
-              gradeFront,
-              gradeBack
-            )}
-          </div>
-        )
-      )} */}
+   
 
            {damageCategories.map(
         ({ key, dataFront, dataBack, gradeFront, gradeBack }, index) => (
