@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
   //find document with specific ssint id, if it doesnt exist then create else not
   const isCert = await databases.listDocuments(
     conf.databaseId, // databaseId
-    conf.collectionId, // collectionId
+    conf.collectionIdCert, // collectionId
     [Query.equal("ssintId", String(ssintId))] // queries (optional)
   );
 
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     // Fetch current card details using ssintId
     const currentCardResponse = await databases.listDocuments(
       conf.databaseId,
-      conf.collectionId,
+      conf.collectionIdCert,
       [Query.equal("cardName", String(cardName))]
     );
 
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
       // Step 1: Query for similar cards
       const similarCardsResponse = await databases.listDocuments(
         conf.databaseId,
-        conf.collectionId,
+        conf.collectionIdCert,
         [
           Query.equal("cardName", name),
           Query.equal("cardSet", set),
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
       // Step 3: Add the new card with updated `population` and `popHigh`
       await databases.createDocument(
         conf.databaseId,
-        conf.collectionId,
+        conf.collectionIdCert,
         ID.unique(),
         {
           ...certData,
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
       for (const similarCard of similarCards) {
         await databases.updateDocument(
           conf.databaseId,
-          conf.collectionId,
+          conf.collectionIdCert,
           similarCard.$id,
           {
             population: newPopulation,
@@ -147,7 +147,7 @@ export async function POST(request: NextRequest) {
           // Increment popHigh for cards with grade > 1 and grade < new card's grade
           await databases.updateDocument(
             conf.databaseId,
-            conf.collectionId,
+            conf.collectionIdCert,
             similarCard.$id,
             {
               popHigher: (similarCard.popHigher || 0) + 1,
@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
 
       await databases.createDocument(
         conf.databaseId, // databaseId
-        conf.collectionId, // collectionId
+        conf.collectionIdCert, // collectionId
         ID.unique(), // documentId
         certData // data
         // permissions (optional)

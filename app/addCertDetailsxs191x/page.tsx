@@ -3,7 +3,7 @@
 import React from 'react'
 
 import AddCertImages from '../allpages/addImages'
-import AddCertDetails from '../allpages/addCertDetails'
+import AddCertDetails from '../allpages/addCertDetailsO'
 
 const AddCertDetailsPage = () => {
 
