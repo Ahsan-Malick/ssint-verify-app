@@ -50,7 +50,7 @@ export default function CardDetails() {
       }
     }
 
-    // convertImages();
+    convertImages();
 
     return () => {
       isMounted = false; // cancel if component unmounts
