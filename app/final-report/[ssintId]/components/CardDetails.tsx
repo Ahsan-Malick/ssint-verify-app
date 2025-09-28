@@ -57,7 +57,7 @@ export default function CardDetails() {
     };
   }, [frontImageUrl, backImageUrl]);
 
-  // if (!frontBase64 || !backBase64) return <p>Loading images...</p>;
+  if (!frontBase64 || !backBase64) return <p>Loading images...</p>;
 
   return (
     <Card className="relative overflow-hidden bg-white/80 backdrop-blur-sm border-2 border-transparent bg-gradient-to-r from-blue-100/50 via-white to-purple-100/50 shadow-lg hover:shadow-xl transition-all duration-300">

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   TradingCardProvider,
   useTradingCard,
@@ -109,6 +110,7 @@ function AddReportLayoutInner({ children }: { children: React.ReactNode }) {
   const { gradedTradingCard, setGradedTradingCard } = useTradingCard();
   const params = useParams<{ ssintId: string }>();
   const ssintId = params?.ssintId;
+  const router = useRouter();
 
 
   const handleSubmit = async () => {
@@ -119,6 +121,10 @@ function AddReportLayoutInner({ children }: { children: React.ReactNode }) {
     try {
       // Replace this with your actual fetch call
       const response = await fetch(`/api/get-final-data/${ssintId}`);
+      if (response.status==404){
+        router.push(`/final-report/${ssintId}/not-found`);
+        return;
+      }
       const data = (await response.json()) as DataFromDB;
       const ssint_id = data.certDetails.ssint_id;
       const grading_data_front = JSON.parse(

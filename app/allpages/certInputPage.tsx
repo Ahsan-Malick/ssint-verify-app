@@ -13,8 +13,8 @@ import RiseLoader from "react-spinners/RiseLoader";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const CertInputPage = () => {
-  const [ssintId, setSsintId] = useState("");
-  const [certLoading, setCertLoading] = useState(false);
+  const [ssintId, setSsintId] = useState<string>("");
+  const [certLoading, setCertLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -134,20 +134,14 @@ const CertInputPage = () => {
                 onChange={(e) => setSsintId(e.target.value)}
                 className="w-full border-gray-200 text-black placeholder-gray-400"
               />
-              {certLoading ? (
-                <RiseLoader
-                  size={10}
-                  color="red"
-                  loading={certLoading}
-                ></RiseLoader>
-              ) : (
+          
                 <Button
                   type="submit"
                   className="w-full bg-red-600 hover:bg-red-700 text-white py-6 rounded-md transition-colors"
                 >
                   Check Certificate
                 </Button>
-              )}
+             
             </form>
           </div>
         </main>

@@ -1,24 +1,28 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Router from "next/router"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"
-import { Button } from "../../components/ui/button"
-import { Input } from "../../components/ui/input"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
-import { Badge } from "../../components/ui/badge"
-import { Sparkles, Zap, Shield, Search, Upload } from "lucide-react"
-import { JsonParsedData } from "./context/TradingCardContext"
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
 import {
-  useTradingCard,
-} from "./context/TradingCardContext";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import { Badge } from "../../components/ui/badge";
+import { Sparkles, Zap, Shield, Search, Upload } from "lucide-react";
+import { useTradingCard } from "./context/TradingCardContext";
+import RiseLoader from "react-spinners/RiseLoader";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export interface DetailsForReport {
   ssint_id: string;
@@ -33,14 +37,12 @@ export interface DataFromDB {
 }
 
 export default function HomePage() {
-  const heroRef = useRef<HTMLDivElement>(null)
-  const aiSectionRef = useRef<HTMLDivElement>(null)
-  const inputSectionRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<HTMLDivElement>(null)
-  const [submitId, setSubmitId] = useState("")
-  const [reportId, setReportId] = useState("")
-
-  
+  const heroRef = useRef<HTMLDivElement>(null);
+  const aiSectionRef = useRef<HTMLDivElement>(null);
+  const inputSectionRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const [submitId, setSubmitId] = useState("");
+  const [reportId, setReportId] = useState("");
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -59,27 +61,27 @@ export default function HomePage() {
           duration: 1.5,
           stagger: 0.3,
           ease: "power3.out",
-        },
-      )
+        }
+      );
 
       // AI section animations
-   const aiTitle = aiSectionRef.current?.querySelector(".ai-title");
+      const aiTitle = aiSectionRef.current?.querySelector(".ai-title");
 
-if (aiTitle && aiSectionRef.current) {
-  gsap.fromTo(
-    aiTitle,
-    { opacity: 0, y: 50 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: aiSectionRef.current,
-        start: "top 80%",
-      },
-    }
-  );
-}
+      if (aiTitle && aiSectionRef.current) {
+        gsap.fromTo(
+          aiTitle,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            scrollTrigger: {
+              trigger: aiSectionRef.current,
+              start: "top 80%",
+            },
+          }
+        );
+      }
       // Floating animation for AI cards
       gsap.to(cardsRef.current?.children || [], {
         y: -10,
@@ -92,7 +94,7 @@ if (aiTitle && aiSectionRef.current) {
           trigger: cardsRef.current,
           start: "top 80%",
         },
-      })
+      });
 
       // Input sections animation
       gsap.fromTo(
@@ -113,8 +115,8 @@ if (aiTitle && aiSectionRef.current) {
             trigger: inputSectionRef.current,
             start: "top 80%",
           },
-        },
-      )
+        }
+      );
 
       // Sparkle animation
       gsap.to(".sparkle", {
@@ -122,7 +124,7 @@ if (aiTitle && aiSectionRef.current) {
         duration: 3,
         ease: "none",
         repeat: -1,
-      })
+      });
 
       // Pulse animation for badges
       gsap.to(".pulse-badge", {
@@ -131,84 +133,67 @@ if (aiTitle && aiSectionRef.current) {
         ease: "power2.inOut",
         repeat: -1,
         yoyo: true,
-      })
-    })
-
-    return () => ctx.revert()
-  }, [])
-
-const scrollToInputs = () => {
-  if (inputSectionRef.current) {
-    gsap.to(window, {
-      duration: 1.5,
-      scrollTo: {
-        y: inputSectionRef.current,
-        offsetY: 100,
-      },
-      ease: "power2.inOut",
+      });
     });
-  }
-};
+
+    return () => ctx.revert();
+  }, []);
+
+  const scrollToInputs = () => {
+    if (inputSectionRef.current) {
+      gsap.to(window, {
+        duration: 1.5,
+        scrollTo: {
+          y: inputSectionRef.current,
+          offsetY: 100,
+        },
+        ease: "power2.inOut",
+      });
+    }
+  };
 
   const { gradedTradingCard, setGradedTradingCard } = useTradingCard();
- 
-  const [ssintId, setSsintId] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  const [ssintId, setSsintId] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  // const [certLoading, setCertLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    // Animate button on submit
-    gsap.to(e.target, {
-      scale: 0.95,
-      duration: 0.1,
-      yoyo: true,
-      repeat: 1,
-    })
-    if (!ssintId.trim()) return;
+    e.preventDefault();
     setLoading(true);
+    const response = await fetch(`/api/getCertificate/${ssintId}`); //returns a promise
+    const data = await response.json();
+    const certDetails = data.certDetails;
 
-    try {
-      // Replace this with your actual fetch call
-      const response = await fetch(`/api/get-final-data/${ssintId}`);
-      const data = (await response.json()) as DataFromDB;
-      const ssint_id = data.certDetails.ssint_id;
-      const grading_data_front = JSON.parse(
-        data.certDetails.grading_data_front
+    // Navigate to the certificate page with query params
+    if (response.status === 200) {
+      router.push(
+        `/certificate?certDetails=${encodeURIComponent(
+          JSON.stringify(certDetails)
+        )}`
       );
-      const grading_data_back = JSON.parse(data.certDetails.grading_data_back);
-      const frontImageUrl = data.certDetails.frontImageUrl;
-      const backImageUrl = data.certDetails.backImageUrl;
-
-      const reportData: JsonParsedData = {
-        ssint_id,
-        grading_data_front,
-        grading_data_back,
-        frontImageUrl,
-        backImageUrl
-      };
-
-      setGradedTradingCard(reportData);
-      Router.push("/final-report");
-    } catch (err) {
-      console.error("Failed to fetch card", err);
-    } finally {
       setLoading(false);
+    } else {
+      toast.error("Something went wrong while getting certificate");
     }
-  }
-const router = useRouter();
+  };
+
+  const router = useRouter();
   const handleReport = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Animate button on submit
     gsap.to(e.target, {
       scale: 0.95,
       duration: 0.1,
       yoyo: true,
       repeat: 1,
-    })
-    
+    });
+
     if (!reportId.trim()) return;
+    setLoading(true);
     router.push(`/final-report/${reportId}`);
-  }
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900 overflow-hidden">
@@ -228,7 +213,9 @@ const router = useRouter();
             </h1>
             <Sparkles className="sparkle absolute -bottom-4 -right-4 w-6 h-6 text-purple-500" />
           </div>
-          <p className="text-2xl md:text-3xl text-gray-600 font-light tracking-wide">Verified, Secured, Trusted</p>
+          <p className="text-2xl md:text-3xl text-gray-600 font-light tracking-wide">
+            Verified, Secured, Trusted
+          </p>
           <div className="flex justify-center space-x-4">
             <Badge className="pulse-badge bg-green-100 text-green-700 border-green-300">
               <Shield className="w-4 h-4 mr-1" />
@@ -253,15 +240,18 @@ const router = useRouter();
       </section>
 
       {/* AI Trading Card Grader Section */}
-      <section ref={aiSectionRef} className="relative py-20 px-4 bg-gradient-to-r from-gray-50 to-white">
+      <section
+        ref={aiSectionRef}
+        className="relative py-20 px-4 bg-gradient-to-r from-gray-50 to-white"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="ai-title text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Introducing AI Trading Card Grader
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Revolutionary artificial intelligence technology that analyzes and grades your trading cards with
-              unprecedented accuracy and speed.
+              Revolutionary artificial intelligence technology that analyzes and
+              grades your trading cards with unprecedented accuracy and speed.
             </p>
           </div>
 
@@ -271,7 +261,9 @@ const router = useRouter();
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                   <Sparkles className="w-6 h-6 text-blue-600" />
                 </div>
-                <CardTitle className="text-gray-900">AI-Powered Analysis</CardTitle>
+                <CardTitle className="text-gray-900">
+                  AI-Powered Analysis
+                </CardTitle>
                 <CardDescription className="text-gray-600">
                   Advanced machine learning algorithms analyze card condition
                 </CardDescription>
@@ -285,17 +277,20 @@ const router = useRouter();
                 </div>
                 <CardTitle className="text-gray-900">Instant Results</CardTitle>
                 <CardDescription className="text-gray-600">
-                  Get comprehensive grading reports in seconds, not days or weeks
+                  Get comprehensive grading reports in seconds, not days or
+                  weeks
                 </CardDescription>
               </CardHeader>
             </Card>
-
           </div>
         </div>
       </section>
 
       {/* Input Sections */}
-      <section ref={inputSectionRef} className="relative py-20 px-4 bg-gradient-to-r from-white to-gray-50">
+      <section
+        ref={inputSectionRef}
+        className="relative py-20 px-4 bg-gradient-to-r from-white to-gray-50"
+      >
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
           {/* Submit Card Section */}
           <Card className="bg-white/90 border-blue-200 backdrop-blur-sm shadow-lg">
@@ -311,25 +306,36 @@ const router = useRouter();
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="submit-id" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="submit-id"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
                     SSINT ID
                   </label>
                   <Input
                     id="submit-id"
                     type="text"
-                    value={submitId}
-                    onChange={(e) => setSubmitId(e.target.value)}
+                    value={ssintId}
+                    onChange={(e) => setSsintId(e.target.value)}
                     placeholder="Enter your SSINT ID"
                     className="bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
                     required
                   />
                 </div>
-                <Button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                View Certificate
-                </Button>
+                {loading ? (
+                  <RiseLoader
+                    size={10}
+                    color="blue"
+                    loading={loading}
+                  ></RiseLoader>
+                ) : (
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    View Certificate
+                  </Button>
+                )}
               </form>
             </CardContent>
           </Card>
@@ -348,7 +354,10 @@ const router = useRouter();
             <CardContent>
               <form onSubmit={handleReport} className="space-y-6">
                 <div>
-                  <label htmlFor="report-id" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="report-id"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
                     SSINT ID
                   </label>
                   <Input
@@ -361,12 +370,20 @@ const router = useRouter();
                     required
                   />
                 </div>
-                <Button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  View Report
-                </Button>
+                {loading ? (
+                  <RiseLoader
+                    size={10}
+                    color="purple"
+                    loading={loading}
+                  ></RiseLoader>
+                ) : (
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    View Report
+                  </Button>
+                )}
               </form>
             </CardContent>
           </Card>
@@ -376,9 +393,11 @@ const router = useRouter();
       {/* Footer */}
       <footer className="relative py-12 px-4 border-t border-gray-200 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gray-500">© 2024 SSINT Registry. Powered by AI. Secured by Blockchain.</p>
+          <p className="text-gray-500">
+            © 2025 SSINT Registry
+          </p>
         </div>
       </footer>
     </div>
-  )
+  );
 }
