@@ -3,6 +3,7 @@
 import React from 'react'
 
 import AddCertImages from '../allpages/addImages'
+import AddCertDetails from '../allpages/addCertDetails'
 
 const AddCertDetailsPage = () => {
 
@@ -19,7 +20,8 @@ const AddCertDetailsPage = () => {
           className="border p-2 rounded"/>
            
     </div>: */}
-    <AddCertImages></AddCertImages>
+    {/* <AddCertImages></AddCertImages> */}
+    <AddCertDetails></AddCertDetails>
 
     </div>
   )

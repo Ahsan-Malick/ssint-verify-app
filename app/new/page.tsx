@@ -19,7 +19,6 @@ import {
 } from "../../components/ui/card";
 import { Badge } from "../../components/ui/badge";
 import { Sparkles, Zap, Shield, Search, Upload } from "lucide-react";
-import { useTradingCard } from "./context/TradingCardContext";
 import RiseLoader from "react-spinners/RiseLoader";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -41,8 +40,7 @@ export default function HomePage() {
   const aiSectionRef = useRef<HTMLDivElement>(null);
   const inputSectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const [submitId, setSubmitId] = useState("");
-  const [reportId, setReportId] = useState("");
+  const [reportId, setReportId] = useState<string>("");
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -152,11 +150,10 @@ export default function HomePage() {
     }
   };
 
-  const { gradedTradingCard, setGradedTradingCard } = useTradingCard();
 
   const [ssintId, setSsintId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  // const [certLoading, setCertLoading] = useState<boolean>(false);
+ 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -246,7 +243,7 @@ export default function HomePage() {
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="ai-title text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="ai-title text-5xl md:text-6xl pb-3 font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Introducing AI Trading Card Grader
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -365,7 +362,7 @@ export default function HomePage() {
                     type="text"
                     value={reportId}
                     onChange={(e) => setReportId(e.target.value)}
-                    placeholder="Enter SSINT ID to view report"
+                    placeholder="Enter SSINT ID"
                     className="bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-purple-500 focus:ring-purple-500"
                     required
                   />
