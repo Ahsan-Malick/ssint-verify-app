@@ -367,20 +367,14 @@ export default function HomePage() {
                     required
                   />
                 </div>
-                {loading ? (
-                  <RiseLoader
-                    size={10}
-                    color="purple"
-                    loading={loading}
-                  ></RiseLoader>
-                ) : (
+           
                   <Button
                     type="submit"
                     className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     View Report
                   </Button>
-                )}
+              
               </form>
             </CardContent>
           </Card>

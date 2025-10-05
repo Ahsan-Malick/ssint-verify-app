@@ -239,7 +239,7 @@ export default function CardDetails() {
             <div className="space-y-2">
               <Label className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
                 <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
-                FInal Grade
+                Final Grade
               </Label>
               <Input
                 className={`${getGradeShadowColor(
