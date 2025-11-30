@@ -8,7 +8,7 @@ import { Montserrat } from "next/font/google";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { SocialIcon } from "react-social-icons";
-import RiseLoader from "react-spinners/RiseLoader";
+
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 

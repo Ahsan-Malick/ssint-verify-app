@@ -20,6 +20,7 @@ import {
 import { Badge } from "../../components/ui/badge";
 import { Sparkles, Zap, Shield, Search, Upload } from "lucide-react";
 import RiseLoader from "react-spinners/RiseLoader";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -150,10 +151,9 @@ export default function HomePage() {
     }
   };
 
-
   const [ssintId, setSsintId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
- 
+  const [certLoading, setCertLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -187,9 +187,8 @@ export default function HomePage() {
     });
 
     if (!reportId.trim()) return;
-    setLoading(true);
+    setCertLoading(true);
     router.push(`/final-report/${reportId}`);
-    setLoading(false);
   };
 
   return (
@@ -201,8 +200,18 @@ export default function HomePage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4">
+      <section className="relative min-h-screen  flex items-center justify-center px-4">
         <div ref={heroRef} className="text-center space-y-8">
+          {/* Logo */}
+          <div className="container mx-auto flex justify-center items-center py-4 px-4">
+            <Image
+              src="/ssintLogo.png" // Path to the logo in the public folder
+              alt="SSINT Logo"
+              width={200} // Set the width
+              height={50} // Set the height
+              priority
+            ></Image>
+          </div>
           <div className="relative">
             <Sparkles className="sparkle absolute -top-8 -left-8 w-8 h-8 text-blue-500" />
             <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-black via-gray-800 to-gray-900 bg-clip-text text-transparent leading-tight">
@@ -367,14 +376,20 @@ export default function HomePage() {
                     required
                   />
                 </div>
-           
+                {certLoading ? (
+                  <RiseLoader
+                    size={10}
+                    color="blue"
+                    loading={certLoading}
+                  ></RiseLoader>
+                ) : (
                   <Button
                     type="submit"
                     className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     View Report
                   </Button>
-              
+                )}
               </form>
             </CardContent>
           </Card>
@@ -384,9 +399,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="relative py-12 px-4 border-t border-gray-200 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gray-500">
-            © 2025 SSINT Registry
-          </p>
+          <p className="text-gray-500">© 2025 SSINT Registry</p>
         </div>
       </footer>
     </div>

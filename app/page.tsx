@@ -1,5 +1,6 @@
 
-import CertInputPage from "./allpages/certInputPage";
+// import CertInputPage from "./allpages/certInputPage";
+import HomePage from "./new/page";
 
 
 
@@ -9,7 +10,7 @@ export default function Home() {
     <>
     <main>
       <div>
-        <CertInputPage></CertInputPage>
+        <HomePage />
       </div>
     </main>
     </>
