@@ -124,7 +124,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
               id="feedback-text"
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
-              placeholder="Share your suggestions or concerns about the AI grading system..."
+              placeholder="Share your suggestions or concerns about the AI grading system. You can also share general feedback about your experience. We appreciate your input!"
               rows={4}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:border-emerald-500 focus:ring-emerald-500 focus:outline-none resize-none"
               disabled={loading}
