@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -18,9 +18,10 @@ import {
   CardTitle,
 } from "../../components/ui/card";
 import { Badge } from "../../components/ui/badge";
-import { Sparkles, Zap, Shield, Search, Upload } from "lucide-react";
+import { Sparkles, Zap, Search, Upload, MessageSquare } from "lucide-react";
 import RiseLoader from "react-spinners/RiseLoader";
 import Image from "next/image";
+import FeedbackModal from "../allpages/feedbackModal";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -42,6 +43,7 @@ export default function HomePage() {
   const inputSectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [reportId, setReportId] = useState<string>("");
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -223,10 +225,7 @@ export default function HomePage() {
             Verified, Secured, Trusted
           </p>
           <div className="flex justify-center space-x-4">
-            <Badge className="pulse-badge bg-green-100 text-green-700 border-green-300">
-              <Shield className="w-4 h-4 mr-1" />
-              Verified
-            </Badge>
+           
             <Badge className="pulse-badge bg-blue-100 text-blue-700 border-blue-300">
               <Zap className="w-4 h-4 mr-1" />
               AI-Powered
@@ -396,12 +395,27 @@ export default function HomePage() {
         </div>
       </section>
 
+            <section className="relative py-16 px-4 bg-gradient-to-r from-gray-50 to-white border-t border-gray-200">
+        <div className="max-w-4xl mx-auto flex justify-center">
+          <Button
+            onClick={() => setIsFeedbackOpen(true)}
+            size="lg"
+            className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <MessageSquare className="w-5 h-5 mr-2" />
+            Send Feedback on AI Grading
+          </Button>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="relative py-12 px-4 border-t border-gray-200 bg-white">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gray-500">© 2025 SSINT Registry</p>
         </div>
       </footer>
+
+      <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />
     </div>
   );
 }
