@@ -21,7 +21,7 @@ const severities = [
 type SeverityKey = (typeof severities)[number];
 
 const renderDamageCategoryV2 = (
-  category: "corner" | "edges" | "surface", //corner, edges, or surface
+  category: "corner" | "edge" | "surface", //corner, edges, or surface
   dataFront: GradingData["corner"],
   dataBack: GradingData["corner"],
   gradeFront?: number,

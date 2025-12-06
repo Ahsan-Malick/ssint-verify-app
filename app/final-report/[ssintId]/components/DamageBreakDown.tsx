@@ -15,7 +15,7 @@ export interface GradingData {
     minorDamages: number;
     majorPlusDamages: number;
   };
-  edges: {
+  edge: {
     numberOfDamages: number;
     majorDamages: number;
     minorDamages: number;
@@ -39,7 +39,7 @@ export default function DamageBreakDown() {
   const { gradedTradingCard } = useTradingCard();
 
   const damageCategories: Array<{
-    key: "corner" | "edges" | "surface";
+    key: "corner" | "edge" | "surface";
     dataFront: GradingData["corner"];
     dataBack: GradingData["corner"];
     gradeFront: number;
@@ -61,18 +61,18 @@ export default function DamageBreakDown() {
         0,
     },
     {
-      key: "edges",
+      key: "edge",
       dataFront:
-        gradedTradingCard?.grading_data_front.damage_details.edges ??
+        gradedTradingCard?.grading_data_front.damage_details.edge ??
         defaultDamageDetail,
       dataBack:
-        gradedTradingCard?.grading_data_back.damage_details.edges ??
+        gradedTradingCard?.grading_data_back.damage_details.edge ??
         defaultDamageDetail,
       gradeFront:
-        gradedTradingCard?.grading_data_front.grading_result?.breakdown.edges ??
+        gradedTradingCard?.grading_data_front.grading_result?.breakdown.edge ??
         0,
       gradeBack:
-        gradedTradingCard?.grading_data_back.grading_result?.breakdown.edges ??
+        gradedTradingCard?.grading_data_back.grading_result?.breakdown.edge ??
         0,
     },
     {

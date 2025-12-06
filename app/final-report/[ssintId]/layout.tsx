@@ -56,7 +56,7 @@ export interface GradingData {
     minorDamages: number;
     majorPlusDamages: number;
   };
-  edges: {
+  edge: {
     numberOfDamages: number;
     majorDamages: number;
     minorDamages: number;
@@ -89,7 +89,7 @@ export interface GradeResult {
   breakdown: {
     corner: number;
     surface: number;
-    edges: number;
+    edge: number;
     centering: number;
   };
 }
