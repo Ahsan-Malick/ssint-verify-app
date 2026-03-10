@@ -23,10 +23,14 @@ export default function CardDetails() {
   const backGrade =
     gradedTradingCard?.grading_data_back.grading_result.finalGrade;
 
-  const finalGradeRaw = 0.6 * (frontGrade ?? 0) + 0.4 * (backGrade ?? 0);
-  let finalGrade = Math.round(finalGradeRaw * 2) / 2;
-  if (finalGrade > 9.5 && finalGrade < 10) {
+  let finalGradeRaw = 0.6 * (frontGrade ?? 0) + 0.4 * (backGrade ?? 0);
+  let finalGrade;
+
+  if (finalGradeRaw > 9.5 && finalGradeRaw < 10) {
     finalGrade = 9.5;
+  }
+  else {
+    finalGrade = Math.round(finalGradeRaw * 2) / 2;
   }
 
   const frontImageUrl = gradedTradingCard?.frontImageUrl;
