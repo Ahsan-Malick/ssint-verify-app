@@ -24,12 +24,13 @@ export default function CardDetails() {
     gradedTradingCard?.grading_data_back.grading_result.finalGrade;
 
   const finalGradeRaw = 0.6 * (frontGrade ?? 0) + 0.4 * (backGrade ?? 0);
-  const finalGrade = Math.round(finalGradeRaw * 2) / 2;
+  let finalGrade = Math.round(finalGradeRaw * 2) / 2;
+  if (finalGrade > 9.5 && finalGrade < 10) {
+    finalGrade = 9.5;
+  }
 
   const frontImageUrl = gradedTradingCard?.frontImageUrl;
   const backImageUrl = gradedTradingCard?.backImageUrl;
-
-  
 
   const [frontBase64, setFrontBase64] = useState<string | null>(null);
   const [backBase64, setBackBase64] = useState<string | null>(null);
@@ -87,7 +88,7 @@ export default function CardDetails() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <Image
                   src={frontBase64 || "/placeholder.svg"}
-                  
+
                   alt="Card front"
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -184,7 +185,7 @@ export default function CardDetails() {
                   className="bg-white/70 border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
                 />
               </div>
-                      {gradedTradingCard?.grading_data_front.card_details.type1 && (
+              {gradedTradingCard?.grading_data_front.card_details.type1 && (
                 <div className="mt-1">
                   <Label>Detail 1</Label>
                   <Input
@@ -209,7 +210,7 @@ export default function CardDetails() {
                   />
                 </div>
               )}
-                {gradedTradingCard?.grading_data_front.card_details.type3 && (
+              {gradedTradingCard?.grading_data_front.card_details.type3 && (
                 <div className="mt-1">
                   <Label>Detail 2</Label>
                   <Input
