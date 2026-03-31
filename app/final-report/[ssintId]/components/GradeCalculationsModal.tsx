@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, ChevronDown } from "lucide-react";
+import { X } from "lucide-react";
 import { useTradingCard } from "../context/TradingCardContext";
 
 interface GradeCalculationsModalProps {
@@ -14,7 +14,7 @@ export default function GradeCalculationsModal({
   onClose,
 }: GradeCalculationsModalProps) {
   const { gradedTradingCard } = useTradingCard();
-  const [showTwoPerfectRule, setShowTwoPerfectRule] = useState(false);
+
 
   if (!isOpen || !gradedTradingCard) return null;
 
@@ -258,83 +258,7 @@ export default function GradeCalculationsModal({
           <div className="border-t border-dashed border-gray-200" />
 
           {/* Two-Perfect Rule — Collapsible */}
-          <div>
-            <button
-              onClick={() => setShowTwoPerfectRule(!showTwoPerfectRule)}
-              className="w-full flex items-center justify-between gap-2 py-2 group"
-            >
-              <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-amber-100 text-amber-600 text-xs font-bold">
-                  ℹ
-                </div>
-                <span className="font-semibold text-gray-800 text-sm">
-                  Two-Perfect Rule
-                </span>
-                <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
-                  Legacy
-                </span>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
-                  showTwoPerfectRule ? "rotate-180" : ""
-                }`}
-              />
-            </button>
 
-            {showTwoPerfectRule && (
-              <div className="bg-amber-50/60 border border-amber-200/60 rounded-xl p-4 text-sm text-gray-600 space-y-3 mt-2">
-                <p>
-                  In earlier versions of our grading system, we used the{" "}
-                  <span className="font-semibold text-gray-700">Two-Perfect Rule</span>{" "}
-                  to ensure that cards with minor flaws were not
-                  over-graded. Some cards in our database may still reflect
-                  grades calculated under this rule.
-                </p>
-
-                <p>
-                  <span className="font-semibold text-gray-700">How it worked:</span>{" "}
-                  If exactly two out of three areas (Corners, Edges, Surface)
-                  scored a perfect{" "}
-                  <span className="font-mono font-semibold">10</span>, the grade
-                  for that side was set to the score of the third area — rather
-                  than averaging everything together.
-                </p>
-
-                <div className="bg-white/70 rounded-lg p-3 space-y-1">
-                  <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                    Example
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    Corners:{" "}
-                    <span className="font-mono font-semibold">10</span>,
-                    Edges:{" "}
-                    <span className="font-mono font-semibold">10</span>,
-                    Surface:{" "}
-                    <span className="font-mono font-semibold">9</span>,
-                    Centering:{" "}
-                    <span className="font-mono font-semibold">10</span>
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    Average would be{" "}
-                    <span className="font-mono">9.75</span> → rounds to{" "}
-                    <span className="font-mono">10</span>, but the card has a
-                    visible flaw. So the grade for this side ={" "}
-                    <span className="font-mono font-semibold text-amber-700">9</span>
-                  </div>
-                </div>
-
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  This rule helped ensure robust and honest grading by
-                  preventing near-perfect cards from receiving a perfect score.
-                  We have since moved to improved calculation methods for
-                  greater accuracy, but the Two-Perfect Rule remains a
-                  reflection of our commitment to fair grading. We are always
-                  working to refine our techniques so that every grade you
-                  receive is one you can trust.
-                </p>
-              </div>
-            )}
-          </div>
 
           {/* Explanation footer */}
           <div className="text-xs text-gray-400 text-center leading-relaxed pt-2">
