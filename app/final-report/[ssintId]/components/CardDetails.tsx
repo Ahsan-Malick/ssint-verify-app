@@ -216,10 +216,10 @@ export default function CardDetails() {
               )}
               {gradedTradingCard?.grading_data_front.card_details.type3 && (
                 <div className="mt-1">
-                  <Label>Detail 2</Label>
+                  <Label>Detail 3</Label>
                   <Input
                     value={
-                      gradedTradingCard?.grading_data_front.card_details.type2
+                      gradedTradingCard?.grading_data_front.card_details.type3
                     }
                     readOnly
                     placeholder="Player name"
