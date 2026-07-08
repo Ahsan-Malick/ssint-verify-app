@@ -1,5 +1,4 @@
 
-// import CertInputPage from "./allpages/certInputPage";
 import HomePage from "./new/page";
 
 
@@ -8,11 +7,11 @@ import HomePage from "./new/page";
 export default function Home() {
   return (
     <>
-    <main>
-      <div>
-        <HomePage />
-      </div>
-    </main>
+      <main>
+        <div>
+          <HomePage />
+        </div>
+      </main>
     </>
   );
 }
