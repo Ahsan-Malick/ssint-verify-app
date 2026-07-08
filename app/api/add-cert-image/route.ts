@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   const isCert = await databases.listDocuments(
     conf.databaseId, // databaseId
     conf.collectionId, // collectionId
-    [Query.equal("ssintId", String(ssintId))] // queries (optional)
+    [Query.equal("ssintId", String(ssintId))], // queries (optional)
   );
 
   //Card details of the gived ssintId must exist before adding front and back images
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       const file = await storage.createFile(
         conf.bucketId, // bucketId
         ID.unique(), // fileId
-        frontImage // file
+        frontImage, // imagefile
         // permissions (optional)
       );
 
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
       const url = storage.getFileView(
         conf.bucketId, // bucketId
-        fileId // fileId
+        fileId, // fileId
       );
 
       frontUrl = url;
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       const file = await storage.createFile(
         conf.bucketId, // bucketId
         ID.unique(), // fileId
-        backImage // file
+        backImage, // file
         // permissions (optional)
       );
 
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
 
       const url = storage.getFileView(
         conf.bucketId, // bucketId
-        fileId // fileId
+        fileId, // fileId
       );
 
       backUrl = url;
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       {
         frontImageUrl: frontUrl,
         backImageUrl: backUrl,
-      }
+      },
     );
 
     return NextResponse.json("Added");
