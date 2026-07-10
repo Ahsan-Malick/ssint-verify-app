@@ -79,12 +79,8 @@ app/
 │   ├── components/                #   CardDetails, CenteringDetails, DamageBreakDown, GradeCalculationsModal, Header
 │   ├── context/                   #   React context for the loaded trading-card report
 │   └── util/                      #   Grade color coding, severity labels, image → base64 helpers
-├── addCertDetailsxs191x/         # Internal admin route for registering new certificates
-├── allpages/                     # Shared page-level components (cert input, image upload, feedback modal, viewer)
+├── allpages/                     # Shared page-level components (cert input, feedback modal, viewer)
 ├── api/
-│   ├── addCertificate/            # Create a new certificate (+ population/pop-higher calculation)
-│   ├── add-cert-image/            # Attach/replace front & back images for an existing certificate
-│   ├── add-cert-no-image/         # Create/update certificate data without images
 │   ├── getCertificate/[ssintId]/  # Public certificate lookup by SSINT ID
 │   ├── get-final-data/[ssintId]/  # Fetch full grading report payload for the report page
 │   └── submit-feedback/           # Store user feedback on AI grading
